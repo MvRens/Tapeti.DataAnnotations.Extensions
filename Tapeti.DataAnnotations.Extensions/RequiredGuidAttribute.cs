@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tapeti.DataAnnotations.Extensions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Can be used on Guid fields which are supposed to be Required, as the Required attribute does
     /// not work for Guids and making them Nullable is counter-intuitive.
