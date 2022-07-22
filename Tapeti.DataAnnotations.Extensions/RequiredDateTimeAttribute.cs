@@ -19,15 +19,34 @@ namespace Tapeti.DataAnnotations.Extensions
         private const string DefaultErrorMessage = "'{0}' does not contain a valid DateTime value";
         private const string InvalidTypeErrorMessage = "'{0}' is not of type DateTime";
 
+
+        private DateTime minDateTimeValue = new DateTime(1900, 1, 1);
+        private DateTime maxDateTimeValue = new DateTime(2100, 1, 1);
+
+
         /// <summary>
         /// The minimum date considered valid. Defaults to 1900-01-01.
         /// </summary>
-        public DateTime MinValue { get; set; } = new DateTime(1900, 1, 1);
+        /// <remarks>
+        /// This must be provided as a string instead of a DateTime, as the latter is not valid in an attribute context.
+        /// </remarks>
+        public string MinValue
+        {
+            get => minDateTimeValue.ToString("O");
+            set => minDateTimeValue = DateTime.Parse(value);
+        }
 
         /// <summary>
         /// The maximum date considered valid. Defaults to 2100-01-01.
         /// </summary>
-        public DateTime MaxValue { get; set; } = new DateTime(2100, 1, 1);
+        /// <remarks>
+        /// This must be provided as a string instead of a DateTime, as the latter is not valid in an attribute context.
+        /// </remarks>
+        public string MaxValue
+        {
+            get => maxDateTimeValue.ToString("");
+            set => maxDateTimeValue = DateTime.Parse(value);
+        }
 
         /// <inheritdoc />
         public RequiredDateTimeAttribute() : base(DefaultErrorMessage)
@@ -44,7 +63,7 @@ namespace Tapeti.DataAnnotations.Extensions
                 return new ValidationResult(string.Format(InvalidTypeErrorMessage, validationContext.DisplayName));
 
             var dateTimeValue = (DateTime)value;
-            return dateTimeValue < MinValue || dateTimeValue > MaxValue
+            return dateTimeValue < minDateTimeValue || dateTimeValue > maxDateTimeValue
                 ? new ValidationResult(FormatErrorMessage(validationContext.DisplayName))
                 : null;
         }
