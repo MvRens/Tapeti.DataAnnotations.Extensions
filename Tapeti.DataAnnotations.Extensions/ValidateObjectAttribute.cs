@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Tapeti.DataAnnotations.Extensions
 {
@@ -11,17 +13,24 @@ namespace Tapeti.DataAnnotations.Extensions
         /// <inheritdoc />
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            // Null case has to be handled with the Required attribute
+            if (value == null)
+                return ValidationResult.Success;
+
             var results = new List<ValidationResult>();
             var context = new ValidationContext(value, null, null);
 
             Validator.TryValidateObject(value, context, results, true);
 
-            if (results.Count == 0) 
+            if (results.Count == 0)
                 return ValidationResult.Success;
 
-            var compositeResults = new CompositeValidationResult($"Validation for {validationContext.DisplayName} failed!");
+            // Collect validation errors to pass them to the CompositeValidationResult, passing membernames doesn't give the desired clear message what is not valid
+            var aggregateException = new AggregateException(results.Select(validationResult => new ValidationException(validationResult.ErrorMessage)).ToList());
+            
+            var compositeResults = new CompositeValidationResult($"Validation for {validationContext.DisplayName} failed! " + aggregateException.Message);
             results.ForEach(compositeResults.AddResult);
-
+            
             return compositeResults;
         }
     }
