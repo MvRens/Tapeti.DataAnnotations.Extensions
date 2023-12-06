@@ -15,7 +15,7 @@ namespace Tapeti.DataAnnotations.Extensions
         /// <inheritdoc />
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            // Null case dient met Required attribute te worden afgehandeld
+            // Null case has to be handled with the Required attribute
             if (value == null)
                 return ValidationResult.Success;
 
