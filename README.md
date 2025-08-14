@@ -5,7 +5,7 @@ This repository is kind of a part of Tapeti, a RabbitMQ client framework for mic
 The attributes in this packages are not tied to Tapeti in any technical sense and can be used anywhere System.ComponentModel.DataAnnotations are used. It is very useful in Tapeti messaging, and for historical reasons this package will remain to be named "Tapeti.DataAnnotations.Extensions" for now.
 
 
-Refer to the [main Tapeti repository](https://github.com/MvRens/Tapeti) for more information.
+Refer to the [main Tapeti repository](https://codeberg.org/Tapeti/Tapeti) for more information.
 
 
 
