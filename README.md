@@ -1,5 +1,7 @@
+> [!WARNING]
+> This project's development has moved to CodeBerg (https://codeberg.org/Tapeti/Tapeti.DataAnnotations.Extensions)
 
-## Tapeti.DataAnnotations.Extension
+## Tapeti.DataAnnotations.Extensions
 This repository is kind of a part of Tapeti, a RabbitMQ client framework for microservices.
 
 The attributes in this packages are not tied to Tapeti in any technical sense and can be used anywhere System.ComponentModel.DataAnnotations are used. It is very useful in Tapeti messaging, and for historical reasons this package will remain to be named "Tapeti.DataAnnotations.Extensions" for now.
